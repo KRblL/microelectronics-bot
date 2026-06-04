@@ -47,7 +47,7 @@ class GrokComponentFinder:
 
     def find_component(self, part_number: str, documentation_text: str) -> tuple[str, dict[str, int]]:
         stats = {"main_component_attempts": 0, "analogs_attempts": 0, "success": 0}
-        start_time = time.time()
+        start_time = time.perf_counter()
         client = self.create_client()
         try:
             main_component, main_attempts = self.find_main_component(client, part_number, documentation_text)
@@ -55,9 +55,9 @@ class GrokComponentFinder:
             stats["main_component_attempts"] = main_attempts
             stats["analogs_attempts"] = analog_attempts
             stats["success"] = 1
-            total_time = time.time() - start_time
+            total_time = time.perf_counter() - start_time
             logger.info(
-                "Запрос выполнен успешно за %.2f секунд (шаг 1: %d попыток, шаг 2: %d попыток)",
+                "Интеллектуальный этап выполнен за %.2f секунд (шаг 1: %d попыток, шаг 2: %d попыток)",
                 total_time,
                 main_attempts,
                 analog_attempts,
