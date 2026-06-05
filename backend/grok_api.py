@@ -38,7 +38,7 @@ class GrokComponentFinder:
         if not api_key:
             raise RuntimeError("Не задан GROK_API_KEY")
         self.api_key = api_key
-        self.model = model or os.getenv("GROK_MODEL", "grok-4.20-beta-0309-non-reasoning")
+        self.model = model or os.getenv("GROK_MODEL", "grok-4.20-0309-non-reasoning")
         self.temperature = temperature
         self.timeout = timeout
 
