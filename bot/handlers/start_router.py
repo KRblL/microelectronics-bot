@@ -15,7 +15,7 @@ async def start_handler(message: Message) -> None:
 @start_router.message(Command("help"))
 async def help_handler(message: Message) -> None:
     await message.answer(
-        "Отправьте парт-номер компонента одним сообщением."
+        "Отправьте парт-номер компонента одним сообщением.\n\n"
         "Бот найдет техническую документацию, извлечет характеристики,"
         "подберет аналоги и сформирует сравнительную XLSX-таблицу."
     )
