@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def normalize_text(text: str) -> str:
     text = text.replace("\x00", " ")
     text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"[^\w\sа-яА-ЯёЁ.,;:!?()\-+/%°µΩ@#=<>\[\]]", " ", text)
+    text = re.sub(r"[^\w\sа-яА-ЯёЁ.,;:!?()\-–+/%°µμΩΩ@#=<>\[\]±≤≥×]", " ", text)
     return text.strip()
 
 
@@ -36,7 +36,7 @@ def extract_with_pypdf2(path: str) -> str:
     return "\n".join(chunks)
 
 
-def extract_text_from_pdf(path: str, max_chars: int = 60000) -> str:
+def extract_text_from_pdf(path: str, max_chars: int = 300000) -> str:
     pdf_path = Path(path)
     if not pdf_path.exists():
         raise FileNotFoundError(path)
@@ -50,7 +50,7 @@ def extract_text_from_pdf(path: str, max_chars: int = 60000) -> str:
     except Exception as exc:
         logger.warning("pdfplumber не смог извлечь текст из %s: %s", pdf_path.name, exc)
 
-    if len(text.strip()) < 500:
+    if len(text.strip()) < 2000:
         try:
             text = extract_with_pypdf2(str(pdf_path))
             if text.strip():
