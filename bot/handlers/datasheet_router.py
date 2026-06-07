@@ -18,10 +18,6 @@ finder = GrokComponentFinder()
 busy_users: set[int] = set()
 
 
-def is_part_number(text: str) -> bool:
-    return bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_./+#-]{1,60}", text.strip()))
-
-
 async def send_long_text(message: Message, text: str) -> None:
     limit = 3800
     chunks = [text[index:index + limit] for index in range(0, len(text), limit)]
@@ -32,9 +28,6 @@ async def send_long_text(message: Message, text: str) -> None:
 @datasheet_router.message(F.text)
 async def datasheet_handler(message: Message) -> None:
     text = (message.text or "").strip()
-    if not is_part_number(text):
-        await message.answer("Введите корректный парт-номер компонента.")
-        return
 
     user_id = message.from_user.id if message.from_user else message.chat.id
     if user_id in busy_users:
