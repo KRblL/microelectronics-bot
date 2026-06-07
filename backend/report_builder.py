@@ -97,5 +97,5 @@ def build_excel(base: dict[str, Any], analogs: list[dict[str, Any]]) -> tuple[by
     buffer = io.BytesIO()
     workbook.save(buffer)
     buffer.seek(0)
-    filename = f"{base.get('Модель', 'component')}_comparison.xlsx"
+    filename = f"{base.get('Модель', 'component')}_сравнение.xlsx"
     return buffer.read(), filename
